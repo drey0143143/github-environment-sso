@@ -54,7 +54,7 @@ jobs:
   
   apply:
     name: "Run Terragrunt Apply"
-    #needs: plan
+    needs: plan
     runs-on: ubuntu-20.04
     environment: testing
     defaults:
@@ -81,3 +81,13 @@ jobs:
           aws-region: us-east-1
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Terragrunt Init
+        id: init
+        run : terragrunt run-all init -no-color --terragrunt-non-interactive
+
+      - name: Terragrunt Apply
+        id: apply
+        run: terragrunt run-all apply -no-color --terragrunt-non-interactive
+        continue-on-error: true
+
