@@ -12,7 +12,7 @@ resource "aws_kms_key" "test-kms-key" {
   deletion_window_in_days = 10
 }
 
-resource "aws_kms_alias" "a" {
+resource "aws_kms_alias" "github-environment" {
   name          = "alias/myolukey-actions"
   target_key_id = aws_kms_key.test-kms-key.key_id
 }

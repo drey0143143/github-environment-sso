@@ -90,4 +90,3 @@ jobs:
         id: apply
         run: terragrunt run-all apply -no-color --terragrunt-non-interactive
         continue-on-error: true
-
