@@ -54,7 +54,7 @@ jobs:
   
   apply:
     name: "Run Terragrunt Apply"
-    needs: plan
+    #needs: plan
     runs-on: ubuntu-20.04
     environment: testing
     defaults:
