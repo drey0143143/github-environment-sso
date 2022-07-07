@@ -7,14 +7,14 @@ resource "aws_vpc" "test" {
   }
 }
 
-resource "aws_kms_key" "abcdef" {
+resource "aws_kms_key" "test-kms-key" {
   description             = "KMS key 1"
   deletion_window_in_days = 10
 }
 
 resource "aws_kms_alias" "a" {
   name          = "alias/myolukey-actions"
-  target_key_id = aws_kms_key.abcdef.key_id
+  target_key_id = aws_kms_key.test-kms-key.key_id
 }
 
 
@@ -26,3 +26,5 @@ tags = {
  Name = "Dev"
 }
 }
+
+
