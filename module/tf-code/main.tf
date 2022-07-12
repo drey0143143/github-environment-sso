@@ -9,7 +9,7 @@ resource "aws_vpc" "test" {
 
 resource "aws_kms_key" "test-kms-key" {
   description             = "KMS key 1"
-  deletion_window_in_days = 10
+  deletion_window_in_days = 15
 }
 
 resource "aws_kms_alias" "github-environment" {
