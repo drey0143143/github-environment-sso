@@ -2,7 +2,7 @@ name: Testing push to branches
 on:
   push:
     branches-ignore:
-      -main
+      - main
 
 env:
   TERRAFORM_VERSION: 1.1.5
