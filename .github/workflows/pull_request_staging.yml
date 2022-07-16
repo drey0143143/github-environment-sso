@@ -1,8 +1,7 @@
 name: Pull Request to Staging
 on:
-  push:
-    branches-ignore:
-      - main
+  pull_request:
+    branches:
       - staging
 
 env:
