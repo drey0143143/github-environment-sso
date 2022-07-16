@@ -1,8 +1,7 @@
-name: Testing push to branches
+name: Pull Request to Staging
 on:
-  push:
-    branches-ignore:
-      - main
+  pull_request:
+    branches:
       - staging
 
 env:
@@ -15,9 +14,7 @@ concurrency: test-environment    # This will ensure only a single workflow of me
 jobs:
   apply:
     name: "Terragrunt Apply"
-    needs: plan
     runs-on: ubuntu-20.04
-    environment: apply-testing
     defaults:
       run:
         working-directory: ${{ env.TERRAFORM_WORKING_DIR }}
