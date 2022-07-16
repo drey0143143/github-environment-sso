@@ -54,7 +54,7 @@ resource "aws_instance" "web" {
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "my-tf-test-bucket"
+  bucket = "my-tf-sso"
 
   tags = {
     Name        = "My bucket"
