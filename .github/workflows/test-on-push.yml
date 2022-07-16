@@ -3,6 +3,7 @@ on:
   push:
     branches-ignore:
       - main
+      - staging
 
 env:
   TERRAFORM_VERSION: 1.1.5
