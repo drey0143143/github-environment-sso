@@ -1,4 +1,4 @@
-name: Testing push to branches
+name: Pull Request to Staging
 on:
   push:
     branches-ignore:
