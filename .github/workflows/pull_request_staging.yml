@@ -57,6 +57,7 @@ jobs:
   plan:
     name: "Run Terragrunt plan in production environment"
     #if: ${{ github.head_ref == 'main'}}
+    if: github.base_ref == 'main'
     runs-on: ubuntu-20.04
     environment: apply-testing
     defaults:
