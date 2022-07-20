@@ -16,7 +16,7 @@ concurrency: test-environment    # This will ensure only a single workflow of me
 jobs:
   apply:
     name: "Terragrunt Apply"
-    if: ${{ github.head_ref == 'staging'}}
+    if: ${{ github.ref == 'staging'}}
     runs-on: ubuntu-20.04
     defaults:
       run:
