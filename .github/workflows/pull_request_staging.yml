@@ -16,9 +16,9 @@ concurrency: test-environment    # This will ensure only a single workflow of me
 jobs:
   apply:
     name: "Terragrunt Apply"
-    if: ${{ github.ref == 'staging'}}
+    #if: ${{ github.ref == 'staging'}}
     runs-on: ubuntu-20.04
-    environment: apply-testing
+    #environment: apply-testing
     defaults:
       run:
         working-directory: ${{ env.TERRAFORM_WORKING_DIR_TEST }}
@@ -55,8 +55,9 @@ jobs:
 
   plan:
     name: "Run Terragrunt plan in production environment"
-    if: ${{ github.head_ref == 'main'}}
+    #if: ${{ github.head_ref == 'main'}}
     runs-on: ubuntu-20.04
+    environment: apply-testing
     defaults:
        run:
         working-directory: ${{ env.TERRAFORM_WORKING_DIR_PROD }}
