@@ -17,7 +17,7 @@ jobs:
   apply:
     name: "Terragrunt Apply"
     #if: ${{ github.ref == 'staging'}}
-    if: github.event.pull_request == 'staging'
+    if: github.base_ref == 'staging'
     runs-on: ubuntu-20.04
     #environment: apply-testing
     defaults:
