@@ -71,6 +71,11 @@ jobs:
         with:
           terragrunt_version: ${{ env.TERRAGRUNT_VERSION }} 
 
+      - name: Setup Terragrunt
+        uses: autero1/action-terragrunt@v1.1.0
+        with:
+          terragrunt_version: ${{ env.TERRAGRUNT_VERSION }}
+
       - name: configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1.6.1
         with: 
