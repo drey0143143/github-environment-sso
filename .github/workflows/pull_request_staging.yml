@@ -2,7 +2,7 @@ name: Pull Request to Staging
 on:
   pull_request:
     branches:
-      - staging
+      - test
       - main
 
 env:
