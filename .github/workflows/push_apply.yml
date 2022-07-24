@@ -1,4 +1,4 @@
-name: Merge to Staging and Main
+name: Merge to Staging and Main branches
 
 # Run workflow on a Pull Request to Staging or Main branch
 on:
