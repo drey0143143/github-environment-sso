@@ -20,7 +20,9 @@ jobs:
       TERRAGRUNT_VERSION: 0.36.2
       TERRAFORM_WORKING_DIR: './applied/accounts/testing/environment/'
       AWS_REGION: 'us-east-1'
-    secrets: inherit
+    secrets:
+      AWS_ACCESS_KEY_ID: 'AKIAZ37MT63DNOVRFUEF'
+      AWS_SECRET_ACCESS_KEY: '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'
 
   production:
     name: "Run plan in production environment"
