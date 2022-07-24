@@ -1,4 +1,4 @@
-name: Pull Request to Staging
+name: Pull Request to Staging & Main branches
 #on:
  # pull_request:
   #  branches:
