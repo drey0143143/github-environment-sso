@@ -21,6 +21,7 @@ on:
         type: string
       AWS_REGION:
         required: true 
+        type: string
       #ORCHESTRATION_ROLE_ARN:
        # required: true 
         #type: string
