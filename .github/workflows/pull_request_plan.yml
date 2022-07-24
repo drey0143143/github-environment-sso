@@ -1,0 +1,35 @@
+name: Pull Request to Staging and Production
+
+# Run workflow on a Pull Request to Staging or Main branch
+on:
+  pull_request:
+    branches:
+      - staging
+      - main
+
+concurrency: test-environment    # This will ensure only a single workflow of merge to master is run at a time
+
+jobs:
+  staging:
+    name: "Run plan in staging environment"
+    if: github.base_ref == 'staging'
+    uses: ./.github/workflows/reuseable_terraform_plan.yml
+    with:
+      ENVIRONMENT_NAME: "staging"
+      TERRAFORM_VERSION: 1.1.5
+      TERRAGRUNT_VERSION: 0.36.2
+      TERRAFORM_WORKING_DIR: './applied/accounts/testing/environment/'
+      AWS_REGION: 'us-east-1'
+    secrets: inherit
+
+  production:
+    name: "Run plan in production environment"
+    if: github.base_ref == 'main'
+    uses: ./.github/workflows/reuseable_terraform_plan.yml
+    with:
+      ENVIRONMENT_NAME: "production"
+      TERRAFORM_VERSION: 1.1.5
+      TERRAGRUNT_VERSION: 0.36.2
+      TERRAFORM_WORKING_DIR: './applied/accounts/production/environment/'   
+      AWS_REGION: 'us-east-1'  
+    secrets: inherit

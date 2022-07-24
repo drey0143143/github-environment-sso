@@ -1,9 +1,9 @@
-name: Pull Request to Staging
-on:
-  pull_request:
-    branches:
-      - staging
-      - main
+name: Pull Request to Staging & Main branches
+#on:
+ # pull_request:
+  #  branches:
+   #   - staging
+    #  - main
 
 env:
   TERRAFORM_VERSION: 1.1.5
