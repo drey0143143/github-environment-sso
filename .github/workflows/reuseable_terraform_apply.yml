@@ -66,6 +66,6 @@ jobs:
         id: init
         run: terragrunt run-all init -no-color --terragrunt-non-interactive
 
-      - name: Terragrunt Plan
+      - name: Terragrunt Apply
         id: plan
         run: terragrunt run-all apply -no-color --terragrunt-non-interactive
