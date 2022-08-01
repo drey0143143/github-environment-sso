@@ -1,4 +1,4 @@
-name: Pull Request to Staging and Productions
+name: Pull Request to Staging and Production
 
 # Run workflow on a Pull Request to Staging or Main branch
 on:
