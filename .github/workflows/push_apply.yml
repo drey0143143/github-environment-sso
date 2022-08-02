@@ -1,0 +1,35 @@
+name: Merge to Staging and Main branches
+
+# Run workflow on a Pull Request to Staging or Main branch
+on:
+  push:
+    branches:
+      - staging
+      - main
+
+concurrency: test-environment    # This will ensure only a single workflow of merge to master is run at a time
+
+jobs:
+  staging:
+    name: "Run apply in staging environment"
+    if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+    uses: ./.github/workflows/reuseable_terraform_apply.yml
+    with:
+      ENVIRONMENT_NAME: "staging"
+      TERRAFORM_VERSION: 1.1.5
+      TERRAGRUNT_VERSION: 0.36.2
+      TERRAFORM_WORKING_DIR: './applied/accounts/testing/environment/'
+      AWS_REGION: 'us-east-1'
+    secrets: inherit
+
+  production:
+    name: "Run apply in production environment"
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    uses: ./.github/workflows/reuseable_terraform_apply.yml
+    with:
+      ENVIRONMENT_NAME: "production"
+      TERRAFORM_VERSION: 1.1.5
+      TERRAGRUNT_VERSION: 0.36.2
+      TERRAFORM_WORKING_DIR: './applied/accounts/production/environment/'   
+      AWS_REGION: 'us-east-1'  
+    secrets: inherit
