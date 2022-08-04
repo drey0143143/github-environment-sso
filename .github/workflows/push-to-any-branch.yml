@@ -43,7 +43,7 @@ jobs:
 
       - name: Terragrunt Init
         id: init
-        run: terragrunt run-all init -no-color --terragrunt-non-interactive --terragrunt-debug #2>&1
+        run: terragrunt run-all init -no-color #--terragrunt-non-interactive --terragrunt-debug #2>&1
 
       - name: Terragrunt Validate
         id: validate
