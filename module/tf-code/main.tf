@@ -57,7 +57,7 @@ resource "aws_s3_bucket" "test" {
   bucket = "my-tf-sso"
 
   tags = {
-    Name        = "My bucket"
+    Name        = My bucket
     Environment = "GitHub"
   }
 }
