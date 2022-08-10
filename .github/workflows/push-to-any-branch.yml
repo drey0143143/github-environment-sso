@@ -12,6 +12,12 @@ env:
   ORCHESTRATION_ROLE_ARN: 'arn:aws:iam::940407795328:role/iam_full_admin_role'
   TERRAGRUNT_LOG_LEVEL: 'debug'
 
+permissions:
+  id-token: write       # write permissions are needed to generate the OIDC token for AWS
+  contents: read        # read permissions are needed to retreive the code
+  issues: write         # write permissions are needed in order to create comments
+  pull-requests: write  # write permissions are needed in order to create comments
+
 #concurrency: test-environment    # his will ensure only a single workflow of merge to master is run at a time
 
 jobs:
