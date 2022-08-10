@@ -4,10 +4,10 @@ name: Pull Request to Staging and main branches
 on:
   workflow_call:
     inputs:
-      ENVIRONMENT_NAME:
-        description: "The environment to use in running the workflow (Staging or Production"
-        required: true 
-        type: string
+      #ENVIRONMENT_NAME:
+       #description: "The environment to use in running the workflow (Staging or Production"
+        #required: true 
+        #type: string
       TERRAFORM_VERSION:
         description: " The Terraform version to be installed on the runner"
         required: true 
