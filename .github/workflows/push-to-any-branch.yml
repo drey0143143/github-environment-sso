@@ -10,8 +10,8 @@ env:
   TERRAGRUNT_VERSION: 0.36.2
   TERRAFORM_WORKING_DIR: './applied/accounts/testing/environment/'
   ORCHESTRATION_ROLE_ARN: 'arn:aws:iam::940407795328:role/iam_full_admin_role'
-  #TERRAGRUNT_LOG_LEVEL: 'debug'
-  TF_LOG: 'debug'
+  TERRAGRUNT_LOG_LEVEL: 'debug'
+  #TF_LOG: 'debug'
 
 permissions:
   id-token: write       # write permissions are needed to generate the OIDC token for AWS
