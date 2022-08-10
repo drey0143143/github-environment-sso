@@ -28,36 +28,65 @@
 #}
 
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
+#data "aws_ami" "ubuntu" {
+#  most_recent = true
 
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
+ # filter {
+  #  name   = "name"
+   # values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  #}
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+  #filter {
+   # name   = "virtualization-type"
+    #values = ["hvm"]
+  #}
 
-  owners = ["099720109477"] # Canonical
-}
+  #owners = ["099720109477"] # Canonical
+#}
 
-resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+#resource "aws_instance" "web" {
+ # ami           = data.aws_ami.ubuntu.id
+  #instance_type = "t3.micro"
+
+  #tags = {
+   # Name = HelloWorld
+  #}
+#}
+
+#resource "aws_s3_bucket" "test" {
+ # bucket = "my-tf-sso"
+
+  #tags = {
+   # Name        = "My bucket
+    #Environment = "GitHub"
+  #}
+#}
+
+
+resource "aws_iam_user" "github_user" {
+  name = "github-environment"
 
   tags = {
-    Name = HelloWorld
+    Name = "Github"
   }
 }
 
-resource "aws_s3_bucket" "test" {
-  bucket = "my-tf-sso"
+resource "aws_iam_user_policy" "github_user_policy" {
+  name = "test-policy"
+  user = aws_iam_user.github_user.name
 
-  tags = {
-    Name        = "My bucket
-    Environment = "GitHub"
-  }
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
 }

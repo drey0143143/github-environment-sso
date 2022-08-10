@@ -22,9 +22,9 @@ on:
       AWS_REGION:
         required: true 
         type: string
-      #ORCHESTRATION_ROLE_ARN:
-       # required: true 
-        #type: string
+      ORCHESTRATION_ROLE_ARN:
+        required: true 
+        type: string
     #secrets:
      # AWS_ACCESS_KEY_ID:
       #  required: true 
@@ -58,9 +58,9 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1.6.1
         with: 
           aws-region: ${{ inputs.AWS_REGION }}
-          #role-to-assume: ${{ inputs.ORCHESTRATION_ROLE_ARN }}
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ inputs.ORCHESTRATION_ROLE_ARN }}
+          #aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          #aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terragrunt Init
         id: init
