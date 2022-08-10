@@ -19,7 +19,7 @@ permissions:
   issues: write         # write permissions are needed in order to create comments
   pull-requests: write  # write permissions are needed in order to create comments
 
-#concurrency: test-environment    # his will ensure only a single workflow of merge to master is run at a time
+#concurrency: test-environment    # this will ensure only a single workflow of merge to master is run at a time
 
 jobs:
   plan:
