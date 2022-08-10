@@ -21,7 +21,7 @@ jobs:
     if: github.base_ref == 'staging'
     uses: ./.github/workflows/reuseable_terraform_plan.yml
     with:
-      ENVIRONMENT_NAME: "staging"
+      #ENVIRONMENT_NAME: "staging"
       TERRAFORM_VERSION: 1.1.5
       TERRAGRUNT_VERSION: 0.36.2
       TERRAFORM_WORKING_DIR: './applied/accounts/testing/environment/'
@@ -34,7 +34,7 @@ jobs:
     if: github.base_ref == 'main'
     uses: ./.github/workflows/reuseable_terraform_plan.yml
     with:
-      ENVIRONMENT_NAME: "production"
+      #ENVIRONMENT_NAME: "production"
       TERRAFORM_VERSION: 1.1.5
       TERRAGRUNT_VERSION: 0.36.2
       TERRAFORM_WORKING_DIR: './applied/accounts/production/environment/'
