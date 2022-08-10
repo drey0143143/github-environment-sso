@@ -11,7 +11,7 @@ env:
   TERRAFORM_WORKING_DIR: './applied/accounts/testing/environment/'
   TERRAGRUNT_LOG_LEVEL: 'debug'
 
-concurrency: test-environment    # This will ensure only a single workflow of merge to master is run at a time
+#concurrency: test-environment    # This will ensure only a single workflow of merge to master is run at a time
 
 jobs:
   plan:
