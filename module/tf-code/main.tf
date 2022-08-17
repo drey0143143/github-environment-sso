@@ -1,63 +1,92 @@
-resource "aws_vpc" "test" {
-  cidr_block       = "10.0.0.0/16"
-  instance_tenancy = "default"
+#resource "aws_vpc" "test" {
+ # cidr_block       = "10.0.0.0/16"
+  #instance_tenancy = "default"
+
+  #tags = {
+   # Name = "GithAction"
+  #}
+#}
+
+#resource "aws_kms_key" "test-kms-key" {
+ # description             = "KMS key 1"
+  #deletion_window_in_days = 10
+#}
+
+#resource "aws_kms_alias" "github-environment" {
+ # name          = "alias/myolukey-actions"
+  #target_key_id = aws_kms_key.test-kms-key.key_id
+#}
+
+
+#resource "aws_subnet" "GitAction-subnet" {
+ #vpc_id     = aws_vpc.test.id
+#cidr_block = "10.0.1.0/24"
+
+#tags = {
+ #Name = "Dev"
+#}
+#}
+
+
+#data "aws_ami" "ubuntu" {
+#  most_recent = true
+
+ # filter {
+  #  name   = "name"
+   # values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  #}
+
+  #filter {
+   # name   = "virtualization-type"
+    #values = ["hvm"]
+  #}
+
+  #owners = ["099720109477"] # Canonical
+#}
+
+#resource "aws_instance" "web" {
+ # ami           = data.aws_ami.ubuntu.id
+  #instance_type = "t3.micro"
+
+  #tags = {
+   # Name = HelloWorld
+  #}
+#}
+
+#resource "aws_s3_bucket" "test" {
+ # bucket = "my-tf-sso"
+
+  #tags = {
+   # Name        = "My bucket
+    #Environment = "GitHub"
+  #}
+#}
+
+
+resource "aws_iam_user" "github_user" {
+  name = "github-environment"
 
   tags = {
-    Name = "GithAction"
+    Name = "Github"
   }
 }
 
-resource "aws_kms_key" "test-kms-key" {
-  description             = "KMS key 1"
-  deletion_window_in_days = 10
+resource "aws_iam_user_policy" "github_user_policy" {
+  name = "test-policy"
+  user = aws_iam_user.github_user.name
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
 }
-
-resource "aws_kms_alias" "github-environment" {
-  name          = "alias/myolukey-actions"
-  target_key_id = aws_kms_key.test-kms-key.key_id
-}
-
-
-resource "aws_subnet" "GitAction-subnet" {
- vpc_id     = aws_vpc.test.id
-cidr_block = "10.0.1.0/24"
-
-tags = {
- Name = "Dev"
-}
-}
-
-
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
-resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
-
-  tags = {
-    Name = "HelloWorld"
-  }
-}
-
-resource "aws_s3_bucket" "test" {
-  bucket = "my-tf-sso"
-
-  tags = {
-    Name        = "My bucket"
-    Environment = "GitHub"
-  }
+EOF
 }
