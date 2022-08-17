@@ -5,7 +5,7 @@ on:
   workflow_call:
     inputs:
       ENVIRONMENT_NAME:
-        description: "The environment to use in running the workflow (Staging or Production"
+        description: "The environment to use in running the workflow (Staging or Production)"
         required: true 
         type: string
       TERRAFORM_VERSION:
