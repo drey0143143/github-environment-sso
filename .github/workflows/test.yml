@@ -1,0 +1,67 @@
+name: Pull Request to Staging and Production
+
+# Run workflow on a Pull Request to Staging or Main branch
+#on:
+  pull_request:
+    branches:
+      - staging
+      - master
+
+permissions:
+  id-token: write       # write permissions are needed to generate the OIDC token for AWS
+  contents: read        # read permissions are needed to retreive the code
+  issues: write         # write permissions are needed in order to create comments
+  pull-requests: write  # write permissions are needed in order to create comments
+
+concurrency: production    # This will ensure only a single workflow of merge to master is run at a time
+
+jobs:
+  docs_awssso:
+    name: "Generate Terraform Docs for AWS SSO"
+    uses: ./.github/workflows/terraform_docs.yml
+    with:
+      WORKING_DIRECTORY: 'infrastructure/region/awssso/' #scoped to only AWS SSO Terraform code
+
+  docs_modules:
+    name: "Generate Terraform Docs for Modules"
+    uses: ./.github/workflows/terraform_docs.yml
+    with:
+      WORKING_DIRECTORY: 'modules/' #scoped to only Terraform modules
+
+  format:
+    name: "Run terraform fmt and push changes back to PR branch"
+    uses: ./.github/workflows/terraform_format.yml
+    with:
+      TERRAFORM_VERSION: 1.1.5
+    
+  kicks:
+    # Kics performs static code analysis of Infrastructure of Code (Terraform).
+    # More details can be found here: https://docs.kics.io/latest/
+    name: "Run Kics scan on Terraform code"
+    uses: ./.github/workflows/terraform_kics.yml
+    with:
+      # Enabling Comments will add a comment to a PR, but these do no exist in Push events and will throw an error.
+      ENABLE_COMMENTS: true
+      WORKING_DIRECTORY: 'infrastructure/region/awssso/' #scoped to only AWS SSO Terraform code
+
+  staging:
+    name: "Run plan in staging environment"
+    if: github.base_ref == 'staging'
+    uses: ./.github/workflows/reuseable_terraform_plan.yml
+    with:
+      TERRAFORM_VERSION: 1.1.5
+      TERRAGRUNT_VERSION: 0.36.2
+      TERRAFORM_WORKING_DIR: './applied/accounts/testing/environment/'
+      ORCHESTRATION_ROLE_ARN: 'arn:aws:iam::940407795328:role/iam_full_admin_role'
+      AWS_REGION: 'us-east-1'
+
+  production:
+    name: "Run plan in production environment"
+    if: github.base_ref == 'main'
+    uses: ./.github/workflows/reuseable_terraform_plan.yml
+    with:
+      TERRAFORM_VERSION: 1.1.5
+      TERRAGRUNT_VERSION: 0.36.2
+      TERRAFORM_WORKING_DIR: './applied/accounts/production/environment/'
+      ORCHESTRATION_ROLE_ARN: 'arn:aws:iam::940407795328:role/iam_full_admin_role'   
+      AWS_REGION: 'us-east-1'  
