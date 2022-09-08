@@ -1,0 +1,41 @@
+name: Merge to Staging and Master branches
+
+# Run workflow on a Pull Request to Staging or Main branch
+#on:
+  push:
+    branches:
+      - staging
+      - master
+
+permissions:
+  id-token: write       # write permissions are needed to generate the OIDC token for AWS
+  contents: read        # read permissions are needed to retreive the code
+  issues: write         # write permissions are needed in order to create comments
+  pull-requests: write  # write permissions are needed in order to create comments
+
+concurrency: production    # This will ensure only a single workflow of merge to master is run at a time
+
+jobs:
+  staging:
+    name: "Run apply in staging environment"
+    if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+    uses: ./.github/workflows/reuseable_terraform_apply.yml
+    with:
+      ENVIRONMENT_NAME: "staging"
+      TERRAFORM_VERSION: 
+      TERRAGRUNT_VERSION: 
+      TERRAFORM_WORKING_DIR:
+      ORCHESTRATION_ROLE_ARN:
+      AWS_REGION: 'us-east-1'
+
+  production:
+    name: "Run apply in production environment"
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    uses: ./.github/workflows/reuseable_terraform_apply.yml
+    with:
+      ENVIRONMENT_NAME: "production"
+      TERRAFORM_VERSION: 
+      TERRAGRUNT_VERSION: 
+      TERRAFORM_WORKING_DIR: 
+      ORCHESTRATION_ROLE_ARN:  
+      AWS_REGION: 'us-east-1'
